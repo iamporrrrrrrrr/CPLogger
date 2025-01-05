@@ -28,7 +28,6 @@ const RandomPopUp = ({ randomProblem, setRandomProblem, addProblem }: IProps) =>
           >Add</button>
           <button onClick={() => setRandomProblem({ ...randomProblem, ok: false })} className="random-popup-close">Close</button>
         </div>
-
       </div>
     </>
   )
