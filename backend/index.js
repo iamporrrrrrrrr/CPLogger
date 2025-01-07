@@ -7,12 +7,13 @@ import { Problem } from "./models/problemModel.js";
 import passport from "passport";
 import authRoute from './routes/auth.js'
 import './passport.js'
-import cookieSession from "cookie-session";
+import session from "express-session";
 
 const PORT = process.env.PORT
 const mongoDBURL = process.env.mongoDBURL
 const CLIENT_URL = process.env.CLIENT_URL
-const app = express()
+const SESSION_SECRET = process.env.SESSION_SECRET
+
 let problemLists
 
 const fetchProblems = async () => {
@@ -27,10 +28,17 @@ const fetchProblems = async () => {
     }
 }
 
-app.use(
-    cookieSession({name: "session", keys: ["keys"], maxAge: 24*60*60*1000})
-)
+const app = express()
 
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge:
+        24*60*60*1000
+     }
+  }))
+  
 
 app.use(passport.initialize())
 
