@@ -1,10 +1,12 @@
-interface IProps {
-  randomProblem: any;
-  setRandomProblem: React.Dispatch<React.SetStateAction<any>>
+import React from "react";
+import { CFProblem } from "../utils/interfaces";
+interface RandomPopUpProps {
+  randomProblem: { ok: boolean, data: CFProblem }
+  setRandomProblem: React.Dispatch<React.SetStateAction<{ ok: boolean, data: CFProblem }>>
   addProblem: (problemId: string) => void;
 }
 
-const RandomPopUp = ({ randomProblem, setRandomProblem, addProblem }: IProps) => {
+const RandomPopUp: React.FC<RandomPopUpProps> = ({ randomProblem, setRandomProblem, addProblem }) => {
   return (
     <>
       <div className="random-popup-box" onClick={e => e.stopPropagation()}>

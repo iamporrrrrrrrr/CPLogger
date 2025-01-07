@@ -10,7 +10,6 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:5556/auth/login/success', {withCredentials: true})
       .then((response) => {
-        console.log(response)
         if(response.status === 200 ) setUser(response.data.user)
       })
       .catch((error) => {

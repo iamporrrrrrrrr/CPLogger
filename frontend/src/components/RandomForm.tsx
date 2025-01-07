@@ -1,15 +1,28 @@
+import React from "react"
 import { IoClose } from "react-icons/io5"
 import { useState } from "react"
+import { CFProblem } from '../utils/interfaces.tsx'
 import axios from "axios"
-const RandomForm = ({ setRandomProblem }: any) => {
-    const [randomProblemFilter, setRandomProblemFilter] = useState<any>({ tags: [], minRating: '', maxRating: '' })
-    const [selectedTag, setSelectedTag] = useState<string>("")
+
+interface randomFormProps{
+    setRandomProblem: React.Dispatch<React.SetStateAction<{ok: boolean, data: CFProblem}>>
+}
+
+interface randomProblemFilter{
+    tags: string[],
+    minRating: string,
+    maxRating: string
+}
+
+const RandomForm: React.FC<randomFormProps> = ({ setRandomProblem }) => {
+    const [randomProblemFilter, setRandomProblemFilter] = useState<randomProblemFilter>({ tags: [], minRating: '', maxRating: '' })
+    const [selectedTag, setSelectedTag] = useState<string>('')
     const getRandomProblem = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
         let queryString = 'http://localhost:5556/problems/random/?'
         if (randomProblemFilter.tags.length) queryString += `tags=${randomProblemFilter.tags.toString()}`
-        if (!isNaN(randomProblemFilter.minRating)) queryString += `&min_rating=${parseInt(randomProblemFilter.minRating)}`
-        if (!isNaN(randomProblemFilter.maxRating)) queryString += `&max_rating=${parseInt(randomProblemFilter.maxRating)}`
+        if (!isNaN(parseInt(randomProblemFilter.minRating))) queryString += `&min_rating=${parseInt(randomProblemFilter.minRating)}`
+        if (!isNaN(parseInt(randomProblemFilter.maxRating))) queryString += `&max_rating=${parseInt(randomProblemFilter.maxRating)}`
         axios
             .get(queryString, { withCredentials: true })
             .then((response) => {
@@ -48,7 +61,7 @@ const RandomForm = ({ setRandomProblem }: any) => {
                 <option value="brute force"
                     title="Brute force">brute force</option>
                 <option value="chinese remainder theorem"
-                    title="Сhinese remainder theorem">chinese remainder theorem</option>
+                    title="Chinese remainder theorem">chinese remainder theorem</option>
                 <option value="combinatorics"
                     title="Combinatorics">combinatorics</option>
                 <option value="constructive algorithms"
@@ -70,7 +83,7 @@ const RandomForm = ({ setRandomProblem }: any) => {
                 <option value="flows"
                     title="Graph network flows">flows</option>
                 <option value="games"
-                    title="Games, Sprague–Grundy theorem">games</option>
+                    title="Games, Sprague-Grundy theorem">games</option>
                 <option value="geometry"
                     title="Geometry, computational geometry">geometry</option>
                 <option value="graph matchings"
@@ -113,7 +126,7 @@ const RandomForm = ({ setRandomProblem }: any) => {
                     title="Two pointers">two pointers</option>
             </select>
             <div className="random-tag-container">
-                {randomProblemFilter.tags.map((tag: string) => {
+                {randomProblemFilter.tags.map((tag) => {
                     return <span onClick={() => {
                         setRandomProblemFilter({ ...randomProblemFilter, tags: randomProblemFilter.tags.filter((tagIn: string) => tagIn !== tag) })
                         setSelectedTag(randomProblemFilter.tags.length > 1 ? randomProblemFilter.tags[randomProblemFilter.tags.length - 2] : '')
