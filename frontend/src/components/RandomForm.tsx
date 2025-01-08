@@ -14,7 +14,7 @@ interface randomProblemFilter{
     maxRating: string
 }
 
-const RandomForm: React.FC<randomFormProps> = ({ setRandomProblem }) => {
+const RandomForm = ({ setRandomProblem }: randomFormProps) => {
     const [randomProblemFilter, setRandomProblemFilter] = useState<randomProblemFilter>({ tags: [], minRating: '', maxRating: '' })
     const [selectedTag, setSelectedTag] = useState<string>('')
     const getRandomProblem = (e: React.FormEvent<HTMLFormElement>): void => {

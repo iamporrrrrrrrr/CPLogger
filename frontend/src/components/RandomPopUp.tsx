@@ -6,7 +6,7 @@ interface RandomPopUpProps {
   addProblem: (problemId: string) => void;
 }
 
-const RandomPopUp: React.FC<RandomPopUpProps> = ({ randomProblem, setRandomProblem, addProblem }) => {
+const RandomPopUp = ({ randomProblem, setRandomProblem, addProblem }: RandomPopUpProps) => {
   return (
     <>
       <div className="random-popup-box" onClick={e => e.stopPropagation()}>
