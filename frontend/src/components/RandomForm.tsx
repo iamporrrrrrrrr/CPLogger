@@ -32,6 +32,8 @@ const RandomForm = ({ setRandomProblem }: randomFormProps) => {
                 setSelectedTag("")
             })
             .catch((error) => {
+                setRandomProblemFilter({ tags: [], minRating: '', maxRating: '' })
+                setSelectedTag("")
                 console.log(error)
             })
     }
