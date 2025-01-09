@@ -138,7 +138,7 @@ app.put('/problems/:id', async (request,response) => {
         const userId = request.user.id
         const result = await Problem.findOneAndUpdate({_id: id, userId}, request.body)
 
-        if(!result) return response.status(404).send({message: 'Problem not found'})
+        if(!result) return response.status(404).json({message: 'Problem not found'})
         return response.status(200).json({message: "updated"})
     }
     catch (error){
