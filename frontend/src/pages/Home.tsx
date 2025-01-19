@@ -63,6 +63,7 @@ function Home({ user }: any) {
         "trees",
         "two pointers"]
     const [tagStats, setTagStats] = useState(tagLists.map((tag, index) => ({ id: index, label: tag, value: 0 })))
+    const [sortRating, setSortRating] = useState(true)
     const problemStatus = ['Unsolved', 'Solved', 'Understood']
     const statusColor = ['#ff4019', '#67FFE7', '#FFD300']
 
@@ -163,7 +164,7 @@ function Home({ user }: any) {
             <div className="header">
                 <div className="header-name"><span>CP</span>Logger</div>
                 <div className="header-user">
-                    <img src={user.photos[0].value} />
+                    <img src={user.photos[0].value} referrerPolicy="no-referrer"/>
                     <div>{user.displayName || user.username}</div>
                     <div onClick={logout} className='logout'>Logout</div>
                 </div>
@@ -198,7 +199,7 @@ function Home({ user }: any) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {problems.filter((problem => showUnsolved ? !problem.status : true)).map((problem, index) => {
+                                        {[...problems].sort((a,b) => sortRating? a.rating-b.rating: -1).filter((problem => showUnsolved ? !problem.status : true)).map((problem, index) => {
                                             return (
                                                 <tr key={`problem-${index}`}>
                                                     <td>{problem.id}</td>
